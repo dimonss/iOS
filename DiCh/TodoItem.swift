@@ -27,12 +27,16 @@ final class TodoItem {
     // Приоритет задачи (0 = низкий, 1 = средний, 2 = высокий)
     var priority: Int
     
+    // Комментарий к задаче (опционально)
+    var comment: String?
+    
     // Инициализатор - аналог конструктора класса в JS
-    init(title: String, isCompleted: Bool = false, priority: Int = 1) {
+    init(title: String, isCompleted: Bool = false, priority: Int = 1, comment: String? = nil) {
         self.id = UUID()
         self.title = title
         self.isCompleted = isCompleted
         self.createdAt = Date()
         self.priority = priority
+        self.comment = comment
     }
 }

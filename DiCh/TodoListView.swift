@@ -40,7 +40,9 @@ struct TodoListView: View {
                     List {
                         // ForEach - как .map() в JSX
                         ForEach(todos) { todo in
-                            TodoRowView(todo: todo)
+                            NavigationLink(destination: TodoDetailView(todo: todo)) {
+                                TodoRowView(todo: todo)
+                            }
                         }
                         // onDelete - swipe-to-delete жест
                         .onDelete(perform: deleteTodos)
@@ -133,16 +135,14 @@ struct TodoRowView: View {
     var body: some View {
         HStack(spacing: 12) {
             // Кнопка-чекбокс
-            Button {
-                withAnimation(.spring(response: 0.3)) {
-                    todo.isCompleted.toggle()
+            Image(systemName: todo.isCompleted ? "checkmark.circle.fill" : "circle")
+                .font(.title2)
+                .foregroundStyle(todo.isCompleted ? .green : .gray)
+                .onTapGesture {
+                    withAnimation(.spring(response: 0.3)) {
+                        todo.isCompleted.toggle()
+                    }
                 }
-            } label: {
-                Image(systemName: todo.isCompleted ? "checkmark.circle.fill" : "circle")
-                    .font(.title2)
-                    .foregroundStyle(todo.isCompleted ? .green : .gray)
-            }
-            .buttonStyle(.plain)
             
             // Текст задачи
             VStack(alignment: .leading, spacing: 4) {
